@@ -16,38 +16,38 @@ const UserSendPickupRequest = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
 
-    const selectFromDistrict = [
-        { value: 'Dhaka', label: 'Dhaka' }
-    ]
-    const selectToDistrict = [
-        { value: 'Dhaka', label: 'Dhaka' }
-    ]
+    // const selectFromDistrict = [
+    //     { value: 'Dhaka', label: 'Dhaka' }
+    // ]
+    // const selectToDistrict = [
+    //     { value: 'Dhaka', label: 'Dhaka' }
+    // ]
 
-    const pickupOptions = allLocationName.map(location => {
-        const option = {
-            value: location._id,
-            label: location.location
-        };
-        return option;
-    });
+    // const pickupOptions = allLocationName.map(location => {
+    //     const option = {
+    //         value: location._id,
+    //         label: location.location
+    //     };
+    //     return option;
+    // });
 
-    const droppingOptions = allLocationName?.map(location => {
-        const option = {
-            value: location._id,
-            label: location.location
-        };
-        return option;
-    });
+    // const droppingOptions = allLocationName?.map(location => {
+    //     const option = {
+    //         value: location._id,
+    //         label: location.location
+    //     };
+    //     return option;
+    // });
 
 
 
-    const handlePickupOptionChange = (selectedOption) => {
-        setSelectedPickupOption(selectedOption);
-        console.log('Selected pickup option:', selectedOption);
-    };
-    const handleDroppingOptionChange = (selectedOption) => {
-        setSelectedDroppingOption(selectedOption);
-    };
+    // const handlePickupOptionChange = (selectedOption) => {
+    //     setSelectedPickupOption(selectedOption);
+    //     console.log('Selected pickup option:', selectedOption);
+    // };
+    // const handleDroppingOptionChange = (selectedOption) => {
+    //     setSelectedDroppingOption(selectedOption);
+    // };
 
 
     const onSubmit = (data) => {
@@ -126,9 +126,6 @@ const UserSendPickupRequest = () => {
 
 
 
-
-
-
     return (
         <section className='my-4 py-5 mx-auto w-full'>
 
@@ -152,7 +149,7 @@ const UserSendPickupRequest = () => {
                                     <div><h1 className='text-2xl font-bold'>From</h1>
                                     </div>
 
-                                    <div className="form-control">
+                                    {/* <div className="form-control">
                                         <label className="label">
                                             <span className="label-text">District</span>
                                         </label>
@@ -161,26 +158,11 @@ const UserSendPickupRequest = () => {
                                             required: " This field is required"
                                         })} />
                                     {errors.districtFrom && <span className="text-error">{errors.districtFrom.message}</span>}
-                                    </div>
-                                    <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">পণ্যের ওজন ( সর্বোচ্চ 10 কেজি ) </span>
-                                        </label>
-                                        <input
-                                            type="number"  // Use type="number" to ensure numeric input
-                                            placeholder="KG"
-                                            {...register("kg", {
-                                                required: true,
-                                                max: {
-                                                    value: 10,
-                                                    message: "মান 10 এর বেশি হতে পারবে না" // Custom error message
-                                                }
-                                            })}
-                                            className="input input-bordered"
-                                        />
-                                        {errors.kg && <span className="text-error">{errors.kg.message}</span>}
-                                    </div>
-                                    <div className="form-control">
+                                    </div> */}
+
+
+                                   
+                                    {/* <div className="form-control">
                                         <label className="label">
                                             <span className="label-text">পিক-আপের এলাকা নির্বাচন করুন</span>
                                         </label>
@@ -193,7 +175,7 @@ const UserSendPickupRequest = () => {
                                             })} />
                                         {errors.pickupArea && <span className="text-error">{errors.pickupArea.message}</span>}
 
-                                    </div>
+                                    </div> */}
 
                                     <div className="form-control">
                                         <label className="label">
@@ -232,7 +214,27 @@ const UserSendPickupRequest = () => {
                                         />
                                         {errors.fromNumber && <span className="text-error">{errors.fromNumber.message}</span>}
                                     </div>
+                                    <div className="form-control">
+                                        <label className="label">
+                                            <span className="label-text">পণ্যের ওজন ( সর্বোচ্চ 10 কেজি ) </span>
+                                        </label>
+                                        <input
+                                            type="number"  // Use type="number" to ensure numeric input
+                                            placeholder="KG"
+                                            {...register("kg", {
+                                                required: true,
+                                                max: {
+                                                    value: 10,
+                                                    message: "মান 10 এর বেশি হতে পারবে না" // Custom error message
+                                                }
+                                            })}
+                                            className="input input-bordered"
+                                        />
+                                        {errors.kg && <span className="text-error">{errors.kg.message}</span>}
+                                    </div>
                                 </div>
+
+                                
 
                                 {/* ...........................................to............................................................................. */}
 
@@ -241,7 +243,7 @@ const UserSendPickupRequest = () => {
                                     <div><h1 className='text-2xl font-bold'>To</h1>
                                     </div>
 
-                                    <div className="form-control">
+                                    {/* <div className="form-control">
                                         <label className="label">
                                             <span className="label-text">District</span>
                                         </label>
@@ -251,10 +253,10 @@ const UserSendPickupRequest = () => {
                                             })} />
                                         {errors.districtTo && <span className="text-error">{errors.districtTo.message}</span>}
 
-                                    </div>
+                                    </div> */}
 
 
-                                    <div className="form-control">
+                                    {/* <div className="form-control">
                                         <label className="label">
                                             <span className="label-text">ডেলিভারি এলাকা নির্বাচন করুন</span>
                                         </label>
@@ -268,7 +270,7 @@ const UserSendPickupRequest = () => {
                                         />
                                         {errors.deliveryArea && <span className="text-error">{errors.deliveryArea.message}</span>}
 
-                                    </div>
+                                    </div> */}
 
                                     <div className="form-control">
                                         <label className="label">

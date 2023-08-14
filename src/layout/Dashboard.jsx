@@ -7,6 +7,8 @@ import { FaShoppingCart, FaWallet, FaCalendarAlt, FaHome, FaUtensils, FaBook, Fa
 import { animated, useSpring } from '@react-spring/web';
 import { BrowserRouter as Router } from 'react-router-dom';
 import img from '../assets/courier ui/ROYAL EXPRESS.png'
+import NavBar from '../components/Shared/NavBar';
+import NavBarDashboard from '../components/Shared/NavBarDashboard';
 
 
 
@@ -15,9 +17,6 @@ const Dashboard = () => {
 
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-
-
-
 
     const AnimatedFaHome = animated(FaHome);
     const AnimatedFaUtensils = animated(FaUtensils);
@@ -60,6 +59,7 @@ const Dashboard = () => {
 
     return (
         <div>
+            <NavBarDashboard></NavBarDashboard>
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col items-center justify-center">
@@ -70,7 +70,7 @@ const Dashboard = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content pt-48">
+                    <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content pt-48 text-xl">
                         {/* Sidebar content here */}
 
 
@@ -83,6 +83,7 @@ const Dashboard = () => {
                             <li><NavLink to="/dashboard/admin/CollectedOrders"> <AnimatedFaLanguage style={iconAnimation} /> Collected Orders</NavLink></li>
                             <li><NavLink to="/dashboard/admin/AssignedForDeliveries"><AnimatedFaUsers style={iconAnimation} /> Assigned For Deliveries</NavLink></li>
                             <li> <NavLink to="/dashboard/admin/DeliveredOrders"><AnimatedFaHome style={iconAnimation} /> Delivered Orders</NavLink></li>
+                            <li> <NavLink to="/dashboard/admin/ManageUsers"><AnimatedFaHome style={iconAnimation} /> Manage Users</NavLink></li>
                         </> : <></>}
 
 
@@ -95,13 +96,13 @@ const Dashboard = () => {
                         </> : <></>}
 
                         {isUser ? <>
-                            <li><NavLink  to="/dashboard/user/Home" ><AnimatedFaUtensils style={iconAnimation} /> User Home</NavLink></li>
+                            <li ><NavLink  to="/dashboard/user/Home" ><AnimatedFaUtensils style={iconAnimation} /> User Home</NavLink></li>
                             <li><NavLink  to="/dashboard/user/UserSendPickupRequest"><AnimatedFaBook style={iconAnimation} /> Send Pickup Request</NavLink></li>
                             <li><NavLink  to="/dashboard/user/UserMyRequests"><FaCalendarAlt></FaCalendarAlt> MyRequests</NavLink></li>
                             <li><NavLink  to="/dashboard/user/UserDeliveredOrders"><AnimatedFaWallet style={iconAnimation} /> Delivered Order</NavLink></li>
                         </> : <></>}
                         <div className="divider"></div>
-                        <li><NavLink to="/"><AnimatedFaHome style={iconAnimation} />Home</NavLink></li>
+                       
                     </ul>
 
                 </div>

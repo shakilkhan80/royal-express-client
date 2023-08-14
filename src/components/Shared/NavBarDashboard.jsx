@@ -3,7 +3,7 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 import logo from "../../assets/courier ui/ROYAL EXPRESS.png"
 
-const NavBar = () => {
+const NavBarDashboard = () => {
     const { user, logOut } = useContext(AuthContext);
 
     const handleLogOut = () => {
@@ -12,11 +12,10 @@ const NavBar = () => {
             .catch(error => console.log(error));
     }
     const navOptions = <>
-        <li><Link>Services </Link></li>
+        {/* <li><Link>Services </Link></li>
         <li><Link>Service area</Link></li>
         <li><Link>Pricing</Link></li>
-        <li><Link>Contact Us</Link></li>
-
+        <li><Link>Contact Us</Link></li> */}
     </>
     return (
         <div>
@@ -31,8 +30,8 @@ const NavBar = () => {
                             {navOptions}
                         </ul>
                     </div>
-                    <img className='w-2/3' src={logo} alt="" />
-                    
+                    <img className='w-1/3' src={logo} alt="" />
+
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -40,18 +39,8 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                {
-            user ? <>
-                <button className="btn btn-warning"><Link to="/dashboard">Dashboard</Link></button>
-                <button onClick={handleLogOut} className="btn btn-error mx-4">LogOut</button>
-
-
-            </> : <>
-                <button className="btn btn-success"> <Link to="/register">Register</Link></button>
-                <button className="btn btn-primary mx-4"><Link to="/login">Login</Link></button> 
-
-            </>
-        }
+                    <button className="btn btn-primary"><Link to="/">Home</Link></button>
+                    <button onClick={handleLogOut} className="btn btn-error mx-4">LogOut</button>
                 </div>
             </div>
 
@@ -59,4 +48,4 @@ const NavBar = () => {
     );
 };
 
-export default NavBar;
+export default NavBarDashboard;

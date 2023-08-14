@@ -22,6 +22,7 @@ import UserHome from "../components/Dashboard/User/UserHome.jsx";
 import UserDeliveredOrder from "../components/Dashboard/User/UserDeliveredOrder.jsx";
 import UserMyRequests from "../components/Dashboard/User/UserMyRequests.jsx";
 import UserSendPickupRequest from "../components/Dashboard/User/UserSendPickupRequest.jsx";
+import ManageUsers from "../components/Dashboard/Admin/ManageUsers.jsx";
 
 
 
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
                 path: '/dashboard/admin/PickupRequests',
                 element:<PickupRequests></PickupRequests>
             },
+            {
+                path: '/dashboard/admin/ManageUsers',
+                element:<ManageUsers></ManageUsers>
+            },
             //employees........................................
             {
                 path: '/dashboard/employees/AssignedForDeliveries',
@@ -84,7 +89,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/employees/AssignedForPickups',
-                element:<EmployeesAssignedForPickups></EmployeesAssignedForPickups>
+                element:<EmployeesAssignedForPickups></EmployeesAssignedForPickups>,
+
             },
             {
                 path: '/dashboard/employees/Delivered',

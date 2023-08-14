@@ -4,7 +4,6 @@ import { useQuery } from 'react-query';
 
 const PickupRequests = () => {
     const { user } = useContext(AuthContext);
-    const [body, setBody] = useState({});
 
     const { data: allOrders = [], refetch } = useQuery({
         queryKey: ['allOrders'],
@@ -15,7 +14,17 @@ const PickupRequests = () => {
         },
     });
 
-    useEffect(() => {
+
+    const orderPlacedOrders = allOrders.filter((order) => order.status === 'Order Placed');
+
+    /* handle status..........................*/
+
+    const handleStatus = async (btn, id) => {
+        const body = {
+            status: btn,
+            id: id
+        }
+
         fetch(`http://localhost:5000/manage-orders`, {
             method: 'PUT',
             headers: {
@@ -29,26 +38,6 @@ const PickupRequests = () => {
                     refetch();
                 }
             })
-    }, [body]);
-
-    const orderPlacedOrders = allOrders.filter((order) => order.status === 'Order Placed');
-
-    /* handle status..........................*/
-
-    const handleStatus = async (btn, id) => {
-        console.log('hello everyone');
-        if (btn === 'Ready For Pickup') {
-            setBody({
-                status: 'Ready For Pickup',
-                id: id
-            });
-        }
-        if (btn === 'Ready For Delivery') {
-            setBody({
-                status: 'Ready For Delivery',
-                id: id
-            });
-        }
     };
 
     return (
@@ -84,32 +73,15 @@ const PickupRequests = () => {
                                         <td>{order.price}</td>
                                         <td>
                                             {order?.status == 'Order Placed' ? 'Order Placed' : ''}
-                                            {order?.status == 'Ready For Pickup' ? 'Ready For Pickup' : ''}
-                                            {order?.status == 'Picked' ? 'Picked' : ''}
-                                            {order?.status == 'Ready For Delivery' ? 'Ready For Delivery' : ''}
-                                            {order?.status == 'Delivered' ? 'Delivered' : ''}
                                         </td>
-
                                         <td> {order.status === 'Order Placed' ? (
                                             <button
                                                 className="btn btn-success btn-xs"
-                                                onClick={() => handleStatus('Ready For Pickup', order._id)}
-                                                disabled={order.status !== 'Order Placed'}
-                                            >
+                                                onClick={() => handleStatus('Ready For Pickup', order._id)}                                            >
                                                 Ready For Pickup
                                             </button>
                                         ) : null}
-                                            <br />
-                                            {order.status === 'Picked' ? (
-                                                <button
-                                                    className="btn btn-success btn-xs"
-                                                    onClick={() => handleStatus('Ready For Delivery', order._id)}
-                                                    disabled={order.status !== 'Picked'}
-                                                >
-                                                    Ready For Delivery
-                                                </button>
-                                            ) : null}
-                                            <br />
+                                           
                                         </td>
                                     </tr>
                                 ))}

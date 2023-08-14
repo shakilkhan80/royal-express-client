@@ -10,12 +10,12 @@ import img6 from '../../../assets/courier ui/features 6.png';
 
 const ServiceFeatures = () => {
     return (
-        <section className="my-32">
+        <section className="my-32 ">
             <SectionTitle 
                 heading={"সার্ভিস সমূহ"}
             ></SectionTitle>
 
-            <div className='grid grid-cols-3 gap-4 my-20'>
+            <div className=' my-20 flex justify-center'>
                 <div className="card card-compact w-96 bg-base-100 shadow-xl">
                     <figure><img src={img1} alt="" /></figure>
                     <div className="card-body">
@@ -29,7 +29,7 @@ const ServiceFeatures = () => {
                     </div>
                 </div>
 
-                <div className="card card-compact w-96 bg-base-100 shadow-xl">
+                {/* <div className="card card-compact w-96 bg-base-100 shadow-xl">
                     <figure><img src={img2} alt="" /></figure>
                     <div className="card-body">
 
@@ -94,7 +94,7 @@ const ServiceFeatures = () => {
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
         </section>

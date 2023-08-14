@@ -14,8 +14,14 @@ const CollectedOrders = () => {
             return data;
         },
     });
+    const orderPlacedOrders = allOrders.filter((order) => order.status === 'Picked');
 
-    useEffect(() => {
+    const handleStatus = async (btn, id) => {
+        const body = {
+            status: btn,
+            id: id
+        }
+
         fetch(`http://localhost:5000/manage-orders`, {
             method: 'PUT',
             headers: {
@@ -29,20 +35,6 @@ const CollectedOrders = () => {
                     refetch();
                 }
             })
-    }, [body]);
-
-    const orderPlacedOrders = allOrders.filter((order) => order.status === 'Picked');
-
-    /* handle status..........................*/
-
-    const handleStatus = async (btn, id) => {
-       
-        if (btn === 'Ready For Delivery') {
-            setBody({
-                status: 'Ready For Delivery',
-                id: id
-            });
-        }
     };
 
     return (
@@ -78,7 +70,7 @@ const CollectedOrders = () => {
                                         <td>{order.price}</td>
                                         <td>
                                             {order?.status == 'Picked' ? 'Picked' : ''}
-                                            {order?.status == 'Ready For Delivery' ? 'Ready For Delivery' : ''}
+                                            
                                         </td>
 
                                         <td>
@@ -86,7 +78,7 @@ const CollectedOrders = () => {
                                                 <button
                                                     className="btn btn-success btn-xs"
                                                     onClick={() => handleStatus('Ready For Delivery', order._id)}
-                                                    disabled={order.status !== 'Picked'}
+                                                    
                                                 >
                                                     Ready For Delivery
                                                 </button>

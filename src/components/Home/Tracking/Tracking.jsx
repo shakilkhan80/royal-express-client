@@ -1,70 +1,72 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 
 const Tracking = () => {
-    const [orderId, setOrderId] = useState('');
-    const [orderStatus, setOrderStatus] = useState('Order Placed');
-    const [showOrderStatus, setShowOrderStatus] = useState(false); // New state for visibility
+    const [trackingId, setTrackingId] = useState('');
+    const [orderStatus, setOrderStatus] = useState('');
+    const [showOrderStatus, setShowOrderStatus] = useState(false);
+    const [validTrackingId, setValidTrackingId] = useState(true);
 
     const handleTrackOrder = () => {
-        // Fetch order status for the specified _id from the API
-        fetch(`http://localhost:5000/orders?_id=${orderId}`, {
-            method: 'GET'
+        // Fetch order status for the specified trackingId from the API
+        fetch(`http://localhost:5000/orders?trackingId=${trackingId}`, {
+            method: 'GET',
         })
-            .then(response => response.json())
-            .then(data => {
-                // Assuming the API returns an array of orders and you want to get the status of the first order
+            .then((response) => response.json())
+            .then((data) => {
                 if (Array.isArray(data) && data.length > 0) {
-                    setOrderStatus(data[0].status);
+                    const order = data.find(item => item.trackingId === trackingId);
+                    if (order) {
+                        setOrderStatus(order.status);
+                        setValidTrackingId(true);
+                    } else {
+                        setOrderStatus('Order not found');
+                        setValidTrackingId(false);
+                    }
                 } else {
                     setOrderStatus('Order not found');
+                    setValidTrackingId(false);
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(error);
                 setOrderStatus('Error fetching order status');
+                setValidTrackingId(false);
             })
             .finally(() => {
-                setShowOrderStatus(true); // Show order status after fetch, whether successful or not
+                setShowOrderStatus(true);
             });
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-
-            <SectionTitle heading={"Tracking"} />
-            <div className="my-4 mx-4">
+        <div className="flex flex-col items-center justify-center my-28">
+            <SectionTitle heading={'Tracking'} />
+            <div >
                 <label className="label">
                     <span className="label-text text-lg">Enter Tracking Id:</span>
                 </label>
                 <input
                     type="text"
-                    placeholder="Enter _id"
-                    value={orderId}
-                    onChange={(e) => setOrderId(e.target.value)}
+                    placeholder="Enter Tracking Id"
+                    value={trackingId}
+                    onChange={(e) => setTrackingId(e.target.value)}
                     className="input input-bordered w-64"
                 />
-                <button
-                    onClick={handleTrackOrder}
-                    className="btn btn-primary ml-2"
-                >
+                <button onClick={handleTrackOrder} className="btn btn-primary ml-2">
                     Track Order
                 </button>
             </div>
             {showOrderStatus && (
                 <ul className="steps flex justify-center">
-
-                    <li className={`step ${orderStatus === 'Order Placed' || orderStatus === 'Ready For Pickup' || orderStatus === 'Picked' || orderStatus === 'Ready For Delivery' || orderStatus === 'Delivered' ? 'step-primary' : ''} w-32`}>Order Placed</li>
-
-                    <li className={`step ${orderStatus === 'Ready For Pickup' || orderStatus === 'Picked' || orderStatus === 'Ready For Delivery' || orderStatus === 'Delivered' ? 'step-primary' : ''} w-32`}>Ready For Pickup</li>
-
-
-                    <li className={`step ${ orderStatus === 'Picked' || orderStatus === 'Ready For Delivery' || orderStatus === 'Delivered' ? 'step-primary' : ''} w-32`}>Picked</li>
-
-                    <li className={`step ${ orderStatus === 'Ready For Delivery' || orderStatus === 'Delivered' ? 'step-primary' : ''} w-32`}>Ready For Delivery</li>
-
+                    <li className={`step ${orderStatus === 'Order Placed' ? 'step-primary' : ''} w-32`}>Order Placed</li>
+                    <li className={`step ${orderStatus === 'Ready For Pickup' ? 'step-primary' : ''} w-32`}>Ready For Pickup</li>
+                    <li className={`step ${orderStatus === 'Picked' ? 'step-primary' : ''} w-32`}>Picked</li>
+                    <li className={`step ${orderStatus === 'Ready For Delivery' ? 'step-primary' : ''} w-32`}>Ready For Delivery</li>
                     <li className={`step ${orderStatus === 'Delivered' ? 'step-primary' : ''} w-32`}>Delivered</li>
                 </ul>
+            )}
+            {showOrderStatus && !validTrackingId && (
+                <p className="text-red-600 font-bold mt-4">Invalid Tracking ID or Order not found</p>
             )}
         </div>
     );

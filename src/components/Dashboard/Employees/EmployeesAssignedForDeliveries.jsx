@@ -3,6 +3,8 @@ import { AuthContext } from '../../../providers/AuthProvider';
 import { useQuery } from 'react-query';
 
 const EmployeesAssignedForDeliveries = () => {
+    
+
     const { user } = useContext(AuthContext);
     const [body, setBody] = useState({});
 
@@ -15,7 +17,12 @@ const EmployeesAssignedForDeliveries = () => {
         },
     });
 
-    useEffect(() => {
+    const handleStatus = async (btn, id) => {
+        const body = {
+            status: btn,
+            id: id
+        }
+
         fetch(`http://localhost:5000/manage-orders`, {
             method: 'PUT',
             headers: {
@@ -29,27 +36,15 @@ const EmployeesAssignedForDeliveries = () => {
                     refetch();
                 }
             })
-    }, [body]);
+    };
 
     const orderPlacedOrders = allOrders.filter((order) => order.status === 'Ready For Delivery');
-
-    /* handle status..........................*/
-
-    const handleStatus = async (btn, id) => {
-       
-        if (btn === 'Picked') {
-            setBody({
-                status: 'Picked',
-                id: id
-            });
-        }
-    };
 
     return (
         <div className='w-full'>
             <div className='pt-24'>
                 <section>
-                    <header className='text-4xl font-bold text-center'>Delivery Requests</header>
+                    <header className='text-4xl font-bold text-center'>Assigned For Deliveries</header>
                     <div className='divider'></div>
                 </section>
                 <div className='md:grid-cols-3 justify-between my-8 '>
@@ -85,13 +80,13 @@ const EmployeesAssignedForDeliveries = () => {
                                         </td>
 
                                         <td>
-                                            {order.status === 'Ready For Pickup' ? (
+                                            {order.status === 'Ready For Delivery' ? (
                                                 <button
                                                     className="btn btn-success btn-xs"
-                                                    onClick={() => handleStatus('Picked', order._id)}
-                                                    disabled={order.status === 'Picked'}
+                                                    onClick={() => handleStatus('Delivered', order._id)}
+                                                    
                                                 >
-                                                    Ready For Delivery
+                                                    Delivered
                                                 </button>
                                             ) : null}
                                             <br />

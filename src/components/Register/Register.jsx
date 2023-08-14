@@ -42,7 +42,7 @@ const Register = () => {
             name,
             email,
             password,
-            role: 'admin'
+            role: 'user'
         }
 
 
@@ -90,8 +90,7 @@ const Register = () => {
                         email: data.email,
                         password: data.password,
                         role: 'admin',
-                        // selectedClass: [],
-                        // enrolledClass: []
+                        
                     };
 
                     axios.post('http://localhost:5000/users', user, {
@@ -181,10 +180,9 @@ const Register = () => {
 
                         </form>
                         <div className='text-center mx-auto'>Already have an account? <Link to="/login" className='text-red-400'>Login</Link></div>
+                        
                         <div className="flex justify-center items-center my-5 space-x-1">
                             <h5 className="">Login with ....   </h5>
-
-
                             <button className='btn btn-circle' onClick={handleGoogleLogin}>G</button>
                         </div>
 

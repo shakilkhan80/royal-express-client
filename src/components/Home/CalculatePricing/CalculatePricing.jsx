@@ -3,7 +3,7 @@ import SectionTitle from '../../SectionTitle/SectionTitle';
 import Select from 'react-select';
 import { useForm } from 'react-hook-form';
 
-const CalculatePricing = ({ allLocationName }) => {
+const CalculatePricing = () => {
     const { register, handleSubmit, errors } = useForm();
     const [calculationResult, setCalculationResult] = useState(null);
     const [showResult, setShowResult] = useState(false);
@@ -25,31 +25,8 @@ const CalculatePricing = ({ allLocationName }) => {
         setCalculationResult(null);
     };
 
-
-
-
-
-    const pickupOptions = allLocationName?.map(location => {
-        const option = {
-            value: location._id,
-            label: location.location
-        };
-        return option;
-    });
-
-    const droppingOptions = allLocationName?.map(location => {
-        const option = {
-            value: location._id,
-            label: location.location
-        };
-        return option;
-    });
-
-
-
     return (
         <section>
-        <SectionTitle heading={"Calculate Pricing section"} />
         <div className="hero py-11 bg-base-200">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
@@ -68,18 +45,7 @@ const CalculatePricing = ({ allLocationName }) => {
                             </label>
                             <input type="text" placeholder="KG" {...register("kg", { required: true })} className="input input-bordered" />
                         </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">পিক-আপের এলাকা নির্বাচন করুন</span>
-                            </label>
-                            <Select options={pickupOptions} />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">ডেলিভারি এলাকা নির্বাচন করুন</span>
-                            </label>
-                            <Select options={droppingOptions} />
-                        </div>
+                        
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Calculate</button>
                             {showResult && <div className="mt-4 text-3xl font-bold">Delivery fee: {calculationResult} Tk</div>}

@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -36,6 +36,60 @@ const Login = () => {
       })
       .catch(error => {
         console.log(error);
+      })
+  }
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then(result => {
+        const loggedInUser = result.user;
+        navigate(from, { replace: true });
+        saveUsers(result.user);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
+  const saveUsers = (data) => {
+
+    fetch(`http://localhost:5000/users?email=${data.email}`)
+      .then(res => res.json())
+      .then(users => {
+        if (users.length > 0) {
+          alert('User Found')
+          console.log(users.length);
+        }
+        if (users.length < 1) {
+          const user = {
+            name: data.displayName,
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            role: 'user',
+
+          };
+
+          axios.post('http://localhost:5000/users', user, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+            .then(response => {
+              if (response.data.acknowledged) {
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Your work has been saved',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
       })
   }
 
@@ -68,6 +122,11 @@ const Login = () => {
               </div>
 
               <div className='text-center mx-auto'>Don't have an account? <Link to="/register" className='text-red-400'>Register</Link></div>
+
+              <div className="flex justify-center items-center my-5 space-x-1">
+                <h5 className="">Login with ....   </h5>
+                <button className='btn btn-circle' onClick={handleGoogleLogin}>G</button>
+              </div>
             </form>
           </div>
         </div>
