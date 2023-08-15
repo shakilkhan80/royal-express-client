@@ -12,6 +12,8 @@
   "dependencies": {
     "@egjs/react-flicking": "^4.11.0",
     "@react-spring/web": "^9.7.3",
+    "@stripe/react-stripe-js": "^2.1.2",
+    "@stripe/stripe-js": "^2.0.0",
     "awesome-react-icons": "^1.4.8",
     "axios": "^1.4.0",
     "firebase": "^10.1.0",
@@ -28,7 +30,7 @@
     "react-router-dom": "^6.14.2",
     "react-select": "^5.7.4",
     "sort-by": "^1.2.0",
-    "sweetalert2": "^11.7.20"
+    "sweetalert2": "^11.7.22"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

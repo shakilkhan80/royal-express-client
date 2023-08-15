@@ -23,6 +23,8 @@ import UserDeliveredOrder from "../components/Dashboard/User/UserDeliveredOrder.
 import UserMyRequests from "../components/Dashboard/User/UserMyRequests.jsx";
 import UserSendPickupRequest from "../components/Dashboard/User/UserSendPickupRequest.jsx";
 import ManageUsers from "../components/Dashboard/Admin/ManageUsers.jsx";
+import Payment from "../components/Dashboard/User/Payments/Payment.jsx";
+import PaymentDone from "../components/Dashboard/User/Payments/PaymentDone.jsx";
 
 
 
@@ -35,19 +37,19 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
-                loader:() => fetch('http://localhost:5000/areas')
+                loader: () => fetch('http://localhost:5000/areas')
             },
             {
                 path: '/login',
                 element: <Login></Login>,
-                
+
             },
             {
                 path: '/register',
                 element: <Register></Register>,
-               
+
             },
-            
+
         ]
     },
     {
@@ -56,75 +58,83 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard/admin/Home',
-                element:<AdminHome></AdminHome>
+                element: <AdminHome></AdminHome>
             },
             {
                 path: '/dashboard/admin/DeliveredOrders',
-                element:<DeliveredOrders></DeliveredOrders>
+                element: <DeliveredOrders></DeliveredOrders>
             },
             {
                 path: '/dashboard/admin/AssignedForDeliveries',
-                element:<AssignedForDeliveries></AssignedForDeliveries>
+                element: <AssignedForDeliveries></AssignedForDeliveries>
             },
             {
                 path: '/dashboard/admin/AssignedForPickups',
-                element:<AssignedForPickups></AssignedForPickups>
+                element: <AssignedForPickups></AssignedForPickups>
             },
             {
                 path: '/dashboard/admin/CollectedOrders',
-                element:<CollectedOrders></CollectedOrders>
+                element: <CollectedOrders></CollectedOrders>
             },
             {
                 path: '/dashboard/admin/PickupRequests',
-                element:<PickupRequests></PickupRequests>
+                element: <PickupRequests></PickupRequests>
             },
             {
                 path: '/dashboard/admin/ManageUsers',
-                element:<ManageUsers></ManageUsers>
+                element: <ManageUsers></ManageUsers>
             },
             //employees........................................
             {
                 path: '/dashboard/employees/AssignedForDeliveries',
-                element:<EmployeesAssignedForDeliveries></EmployeesAssignedForDeliveries>
+                element: <EmployeesAssignedForDeliveries></EmployeesAssignedForDeliveries>
             },
             {
                 path: '/dashboard/employees/AssignedForPickups',
-                element:<EmployeesAssignedForPickups></EmployeesAssignedForPickups>,
+                element: <EmployeesAssignedForPickups></EmployeesAssignedForPickups>,
 
             },
             {
                 path: '/dashboard/employees/Delivered',
-                element:<EmployeesDelivered></EmployeesDelivered>
+                element: <EmployeesDelivered></EmployeesDelivered>
             },
             {
                 path: '/dashboard/employees/EmployeesHome',
-                element:<EmployeesHome></EmployeesHome>
+                element: <EmployeesHome></EmployeesHome>
             },
             {
                 path: '/dashboard/employees/Picked',
-                element:<EmployeesPicked></EmployeesPicked>
+                element: <EmployeesPicked></EmployeesPicked>
             },
 
             //user .........................................................................
             {
                 path: '/dashboard/user/Home',
-                element:<UserHome></UserHome>
+                element: <UserHome></UserHome>
             },
             {
                 path: '/dashboard/user/UserMyRequests',
-                element:<UserMyRequests></UserMyRequests>
+                element: <UserMyRequests></UserMyRequests>
             },
             {
                 path: '/dashboard/user/UserSendPickupRequest',
-                element:<UserSendPickupRequest></UserSendPickupRequest>,
-                loader:() => fetch('http://localhost:5000/areas')
+                element: <UserSendPickupRequest></UserSendPickupRequest>,
+                loader: () => fetch('http://localhost:5000/areas')
             },
             {
                 path: '/dashboard/user/UserDeliveredOrders',
-                element:<UserDeliveredOrder></UserDeliveredOrder>
+                element: <UserDeliveredOrder></UserDeliveredOrder>
             },
-            
-            
-        ] 
+            {
+                path: 'payment',
+                element: <Payment></Payment>
+            },
+            {
+                path:'paymentDone',
+                element: <PaymentDone></PaymentDone>
+            }
+
+
+        ]
     }
 ]);

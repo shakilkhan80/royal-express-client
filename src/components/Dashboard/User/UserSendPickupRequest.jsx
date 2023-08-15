@@ -86,8 +86,7 @@ const UserSendPickupRequest = () => {
             toName,
             toAddress,
             toNumber,
-            pick: selectedPickupOption.label,
-            drop: selectedDroppingOption.label,
+           
             date: formattedDate,
             status: 'Order Placed',
             price,
