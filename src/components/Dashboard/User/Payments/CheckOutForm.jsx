@@ -10,6 +10,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 const CheckOutForm = ({ order, price }) => {
 
+
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useContext(AuthContext);
@@ -98,6 +99,29 @@ const CheckOutForm = ({ order, price }) => {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                // change the payment status
+
+                try {
+                    const id = order[0]
+                    const body = { id: id._id, email: id.email, status: 'Order Placed' }
+                    const response = await fetch(`http://localhost:5000/orders`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(body) // Assuming you're updating the status
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                    } else {
+                        console.error('Failed to update order status:', response.status, response.statusText);
+                    }
+                } catch (error) {
+                    console.error('An error occurred while updating order status:', error);
+                }
+
                 // save payment information to database
                 const payment = {
                     email: user?.email,
