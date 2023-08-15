@@ -4,13 +4,14 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { sendEmailVerification } from "firebase/auth";
 
 
 const Register = () => {
 
     const { createUser, googleLogin } = useContext(AuthContext);
 
-    
+
 
     const { register, handleSubmit, formState: { errors }, } = useForm()
 
@@ -48,6 +49,7 @@ const Register = () => {
 
         createUser(data.email, data.password)
             .then(result => {
+                emailVerification(result.user)
                 saveUsers(user);
                 navigate('/');
 
@@ -57,9 +59,16 @@ const Register = () => {
             })
 
 
-        form.reset();
+        // form.reset();
     }
 
+    const emailVerification = (user) => {
+        sendEmailVerification(user)
+            .then(result => {
+                console.log(result)
+                alert('Check your Email and please confirm your email')
+            })
+    }
     const handleGoogleLogin = () => {
         googleLogin()
             .then(result => {
@@ -90,7 +99,7 @@ const Register = () => {
                         email: data.email,
                         password: data.password,
                         role: 'admin',
-                        
+
                     };
 
                     axios.post('http://localhost:5000/users', user, {
@@ -180,7 +189,7 @@ const Register = () => {
 
                         </form>
                         <div className='text-center mx-auto'>Already have an account? <Link to="/login" className='text-red-400'>Login</Link></div>
-                        
+
                         <div className="flex justify-center items-center my-5 space-x-1">
                             <h5 className="">Login with ....   </h5>
                             <button className='btn btn-circle' onClick={handleGoogleLogin}>G</button>

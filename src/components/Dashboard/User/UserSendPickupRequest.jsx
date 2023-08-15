@@ -88,7 +88,7 @@ const UserSendPickupRequest = () => {
             toNumber,
            
             date: formattedDate,
-            status: 'Order Placed',
+            status: 'Unpaid',
             price,
             date: formattedDate,
             email,
@@ -107,6 +107,7 @@ const UserSendPickupRequest = () => {
             .then(res => res.json())
 
             .then((data) => {
+                console.log(data)
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

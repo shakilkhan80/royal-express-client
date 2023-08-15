@@ -24,7 +24,7 @@ const Payment = () => {
     });
 
 
-    const makePayments = allOrders.filter((order) => order.status === 'Order Placed');
+    const makePayments = allOrders.filter((order) => order.status === 'Unpaid');
     const total = makePayments.reduce((sum, order) => sum + order.price, 0)
     // const amount = 18
 

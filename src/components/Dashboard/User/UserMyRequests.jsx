@@ -21,7 +21,7 @@ const UserMyRequests = () => {
     }, [user]);
 
     // Filter orders by status "Order Placed"
-    const orderPlacedOrders = allOrders.filter((order) => order.status === 'Order Placed');
+    const orderPlacedOrders = allOrders.filter((order) => order.status === 'Unpaid');
     console.log(orderPlacedOrders)
 
     return (
